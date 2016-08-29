@@ -22,9 +22,11 @@ app.get('/',function(req,res){
  * 服务器端确认是缓存是否过期
  * 请求服务器的时候会发一个If-Modified-Since的请求头到服务器端
  *
- *
+ * etag缺点
+ * 1. 每次都要读取完整的文件，读取文件和加密文件需要非常长的时间
  */
 app.get('/index.js',function(req,res){
+    console.log('来访问服务器了');
     var ifModifiedSince = req.headers['if-modified-since'];
     if(ifModifiedSince){
         fs.stat('./index.js',function(err,stat){
